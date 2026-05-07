@@ -18,6 +18,9 @@
  * The original code is licensed under the BSD 2-Clause License; see LICENSE for details.
  */
 
+#include <cstdint>
+#include <cstddef>
+
 #include "rtcm_handler.hpp"
 
 namespace
