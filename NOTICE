@@ -1,0 +1,18 @@
+libgnss
+Copyright (c) 2026 Terry Tian
+
+=========================================================================
+Third-Party Attribution Notices
+=========================================================================
+
+This project contains software from the following third-party projects:
+
+   1. minmea: a lightweight GPS NMEA 0183 parser library in pure C
+   Copyright (c) 2014, Kosma Moczek
+   Licensed under the WTFPL License.
+   https://github.com/kosma/minmea
+
+   2. gpsd: Global Positioning System Daemon
+   Copyright (c) 2005, Eric S. Raymond and others
+   Licensed under the BSD 2-Clause License.
+   https://gitlab.com/gpsd/gpsd
