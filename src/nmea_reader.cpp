@@ -12,16 +12,16 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#include <array>
 #include <optional>
 #include <string>
 
 #include "minmea.h"
 #include "nmea_reader.hpp"
 
-namespace libgnss
+namespace
 {
 
+using libgnss::NMEASentence;
 using DispatchFn = std::optional<NMEASentence> (*)(const char*);
 
 template <typename Frame, bool (*Fn)(Frame*, const char*)>
@@ -37,7 +37,7 @@ std::optional<NMEASentence> parseTyped(const char* s)
 
 // Index must match enum minmea_sentence_id values:
 // 0 = UNKNOWN, 1 = GBS, 2 = GGA, ...
-static constexpr DispatchFn dispatch_table[] = {
+constexpr DispatchFn dispatch_table[] = {
   nullptr,  // MINMEA_UNKNOWN
   &parseTyped<minmea_sentence_gbs, minmea_parse_gbs>,
   &parseTyped<minmea_sentence_gga, minmea_parse_gga>,
@@ -51,9 +51,14 @@ static constexpr DispatchFn dispatch_table[] = {
   &parseTyped<minmea_sentence_zda, minmea_parse_zda>,
 };
 
-std::optional<NMEASentence> parseSentence(const std::string& sentence)
+}  // namespace
+
+namespace libgnss
 {
-  const auto id = minmea_sentence_id(sentence.c_str(), false);
+
+std::optional<NMEASentence> parseNMEA(const char* sentence)
+{
+  const auto id = minmea_sentence_id(sentence, false);
 
   if (id <= MINMEA_UNKNOWN || id >= static_cast<int>(std::size(dispatch_table)))
   {
@@ -66,7 +71,7 @@ std::optional<NMEASentence> parseSentence(const std::string& sentence)
   {
     return std::nullopt;
   }
-  return fn(sentence.c_str());
+  return fn(sentence);
 }
 
 }  // namespace libgnss
