@@ -1,8 +1,8 @@
-# Build artifacts and intermediate files
-build/
-
 # VS Code settings
 .vscode/
+
+# JetBrains IDE settings
+.idea/
 
 # Prerequisites
 *.d

@@ -12,8 +12,8 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-#ifndef LIBGNSS__NMEA_READER_HPP
-#define LIBGNSS__NMEA_READER_HPP
+#ifndef LIBGNSS_NMEA_READER_HPP
+#define LIBGNSS_NMEA_READER_HPP
 
 #include <string>
 #include <optional>
@@ -29,8 +29,8 @@ using NMEASentence = std::variant<
   minmea_sentence_gst, minmea_sentence_gsv, minmea_sentence_rmc, minmea_sentence_ths,
   minmea_sentence_vtg, minmea_sentence_zda>;
 
-std::optional<NMEASentence> parseSentence(const std::string &sentence);
+std::optional<NMEASentence> parseSentence(const std::string& sentence);
 
 }  // namespace libgnss
 
-#endif  // LIBGNSS__NMEA_READER_HPP
+#endif  // LIBGNSS_NMEA_READER_HPP

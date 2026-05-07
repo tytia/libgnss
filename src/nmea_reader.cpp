@@ -19,7 +19,6 @@
 #include "minmea.h"
 #include "nmea_reader.hpp"
 
-
 namespace libgnss
 {
 
@@ -61,8 +60,8 @@ std::optional<NMEASentence> parseSentence(const std::string& sentence)
     return std::nullopt;
   }
 
-  auto fn = dispatch_table[static_cast<size_t>(id)];
-  
+  const auto fn = dispatch_table[static_cast<size_t>(id)];
+
   if (!fn)
   {
     return std::nullopt;
