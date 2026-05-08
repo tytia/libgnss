@@ -12,11 +12,15 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+/**
+ * @brief Functions for interacting with RTCM messages; currently only handles message validation.
+ * @authors Terry Tian
+ */
+
 #ifndef LIBGNSS_RTCM_HANDLER_HPP
 #define LIBGNSS_RTCM_HANDLER_HPP
 
 #include <cstdint>
-#include <cstddef>
 
 namespace libgnss
 {
