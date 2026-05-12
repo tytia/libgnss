@@ -6,7 +6,11 @@
  * published by Sam Hocevar. See the COPYING file for more details.
  */
 
-#include "../include/minmea.h"
+#ifdef _WIN32
+#define timegm _mkgmtime
+#endif
+
+#include "minmea.h"
 
 #include <stdlib.h>
 #include <string.h>
