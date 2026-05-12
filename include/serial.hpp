@@ -37,6 +37,21 @@ namespace libgnss
 class SerialPort
 {
 public:
+  /**
+   * Exception type for errors related to serial port operations. This exception is thrown when an
+   * error occurs while opening, closing, reading from, or writing to the serial port. The error
+   * message will contain details about the specific error that occurred, which may include
+   * information from libserialport if applicable.
+   */
+  class SerialPortError : public std::runtime_error
+  {
+  public:
+    explicit SerialPortError(const std::string& msg)
+      : runtime_error(msg)
+    {
+    }
+  };
+
   SerialPort();
   ~SerialPort();
 
@@ -90,21 +105,6 @@ public:
    * @return
    */
   int write(const uint8_t* buffer, size_t count, unsigned int timeout_ms) const;
-
-  /**
-   * Exception type for errors related to serial port operations. This exception is thrown when an
-   * error occurs while opening, closing, reading from, or writing to the serial port. The error
-   * message will contain details about the specific error that occurred, which may include
-   * information from libserialport if applicable.
-   */
-  class SerialPortError : public std::runtime_error
-  {
-  public:
-    explicit SerialPortError(const std::string& msg)
-      : runtime_error(msg)
-    {
-    }
-  };
 
 private:
   sp_port* beginIO() const;

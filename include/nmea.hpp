@@ -25,13 +25,13 @@
 
 #include "minmea.h"
 
-namespace libgnss
+namespace libgnss::nmea
 {
 
 /**
  * Variant type that can hold any of the supported NMEA sentence structs.
  */
-using NMEASentence = std::variant<
+using Sentence = std::variant<
   minmea_sentence_gbs, minmea_sentence_gga, minmea_sentence_gll, minmea_sentence_gsa,
   minmea_sentence_gst, minmea_sentence_gsv, minmea_sentence_rmc, minmea_sentence_ths,
   minmea_sentence_vtg, minmea_sentence_zda>;
@@ -42,8 +42,8 @@ using NMEASentence = std::variant<
  * @return std::optional containing the parsed NMEASentence if successful, or std::nullopt if
  * parsing failed
  */
-std::optional<NMEASentence> parseNMEA(const char* sentence);
+std::optional<Sentence> parseNMEA(const char* sentence);
 
-}  // namespace libgnss
+}  // namespace libgnss::nmea
 
 #endif  // LIBGNSS_NMEA_READER_HPP

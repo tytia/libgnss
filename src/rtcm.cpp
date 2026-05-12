@@ -21,7 +21,7 @@
 #include <cstdint>
 #include <cstddef>
 
-#include "rtcm_handler.hpp"
+#include "rtcm.hpp"
 
 namespace
 {

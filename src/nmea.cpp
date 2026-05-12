@@ -16,23 +16,23 @@
 #include <string>
 
 #include "minmea.h"
-#include "nmea_reader.hpp"
+#include "nmea.hpp"
 
 namespace
 {
 
-using libgnss::NMEASentence;
-using DispatchFn = std::optional<NMEASentence> (*)(const char*);
+using libgnss::nmea::Sentence;
+using DispatchFn = std::optional<Sentence> (*)(const char*);
 
 template <typename Frame, bool (*Fn)(Frame*, const char*)>
-std::optional<NMEASentence> parseTyped(const char* s)
+std::optional<Sentence> parseTyped(const char* s)
 {
   Frame frame{};
   if (!Fn(&frame, s))
   {
     return std::nullopt;
   }
-  return NMEASentence{frame};
+  return Sentence{frame};
 }
 
 // Index must match enum minmea_sentence_id values:
@@ -53,10 +53,10 @@ constexpr DispatchFn dispatch_table[] = {
 
 }  // namespace
 
-namespace libgnss
+namespace libgnss::nmea
 {
 
-std::optional<NMEASentence> parseNMEA(const char* sentence)
+std::optional<Sentence> parseNMEA(const char* sentence)
 {
   const auto id = minmea_sentence_id(sentence, false);
 
