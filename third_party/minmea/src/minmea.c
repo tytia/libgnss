@@ -563,7 +563,7 @@ bool minmea_parse_rmc(struct minmea_sentence_rmc *frame, const char *sentence)
     int latitude_direction;
     int longitude_direction;
     int variation_direction;
-    if (!minmea_scan(sentence, "tTcfdfdffDfd",
+    if (!minmea_scan(sentence, "tTcfdfdffDfdc",
             &frame->type,
             &frame->time,
             &validity,
@@ -572,7 +572,8 @@ bool minmea_parse_rmc(struct minmea_sentence_rmc *frame, const char *sentence)
             &frame->speed,
             &frame->course,
             &frame->date,
-            &frame->variation, &variation_direction))
+            &frame->variation, &variation_direction,
+            &frame->mode))
         return false;
     if (memcmp(frame->type.sentence_id, "RMC", sizeof(frame->type.sentence_id)))
         return false;

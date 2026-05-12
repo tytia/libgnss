@@ -167,6 +167,7 @@ struct minmea_sentence_rmc {
     struct minmea_float course;
     struct minmea_date date;
     struct minmea_float variation;
+    char mode;
 };
 
 struct minmea_sentence_ths {
