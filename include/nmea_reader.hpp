@@ -46,7 +46,7 @@ public:
    * @return std::optional containing the parsed NMEASentence if successful, or std::nullopt if
    * parsing failed
    */
-  std::optional<Sentence> parseNMEA(const char* sentence);
+  std::optional<Sentence> parseNMEA(const char* sentence) const;
 
   [[nodiscard]] Fix getLatestFix() const;
 

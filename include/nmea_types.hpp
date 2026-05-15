@@ -104,7 +104,9 @@ struct Fix
   double longitude = std::numeric_limits<double>::quiet_NaN();
   double altitude = std::numeric_limits<double>::quiet_NaN();
   double speed = std::numeric_limits<double>::quiet_NaN();
+  double course = std::numeric_limits<double>::quiet_NaN();
   double heading = std::numeric_limits<double>::quiet_NaN();
+  double variation = std::numeric_limits<double>::quiet_NaN();
   std::array<double, 9> position_covariance{};  // East, North and Up (ENU) in row-major order
   CovarianceType covariance_type = CovarianceType::UNKNOWN;
 };
