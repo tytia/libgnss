@@ -306,4 +306,13 @@ void NMEAReader::setCustomCallback(utils::Callback<T> callback)
   std::get<utils::Callback<T>>(custom_callbacks_).emplace(std::move(callback));
 }
 
+void NMEAReader::reset()
+{
+  latest_fix_ = Fix{};
+  latest_date_.reset();
+  known_vdop_ = false;
+  std::apply([](auto&... opt) { (opt.reset(), ...); }, sentences);
+  std::apply([](auto&... cb) { ((cb = nullptr), ...); }, custom_callbacks_);
+}
+
 }  // namespace libgnss::nmea
