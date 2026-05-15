@@ -66,7 +66,7 @@ void SerialPort::open(const std::string& port_name, const int baud_rate)
   }
 
   {
-    const std::lock_guard lock(mutex_);
+    const std::scoped_lock lock(mutex_);
     port_ = new_port;
     closing_ = false;
   }
@@ -95,14 +95,14 @@ void SerialPort::close()
   sp_free_port(port_to_close);
 
   {
-    const std::lock_guard lock(mutex_);
+    const std::scoped_lock lock(mutex_);
     closing_ = false;
   }
 }
 
 bool SerialPort::isOpen() const
 {
-  const std::lock_guard lock(mutex_);
+  const std::scoped_lock lock(mutex_);
   return port_ != nullptr;
 }
 
@@ -141,7 +141,7 @@ int SerialPort::write(
 
 sp_port* SerialPort::beginIO() const
 {
-  const std::lock_guard lock(mutex_);
+  const std::scoped_lock lock(mutex_);
   if (port_ == nullptr || closing_)
   {
     throw SerialPortError("libserialport: port is not open");
@@ -153,7 +153,7 @@ sp_port* SerialPort::beginIO() const
 
 void SerialPort::endIO() const noexcept
 {
-  const std::lock_guard lock(mutex_);
+  const std::scoped_lock lock(mutex_);
   if (active_io_ > 0)
   {
     --active_io_;
