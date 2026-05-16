@@ -25,6 +25,7 @@
 #include <memory>
 #include <functional>
 #include <mutex>
+#include <future>
 
 #include "libgnss/nmea_types.hpp"
 #include "variant_helper.hpp"
@@ -57,29 +58,43 @@ public:
 
   /**
    * Returns the latest parsed sentence of a specific type, if available.
-   * @tparam T NMEA sentence struct type, e.g. SentenceGGA
+   * @tparam TSentence NMEA sentence struct type, e.g. SentenceGGA
    * @return std::optional containing the latest parsed sentence of type T, or std::nullopt if no
    * such sentence has been parsed yet
    */
-  template <typename T>
-  std::optional<T> getLatestSentence() const
+  template <typename TSentence>
+  std::optional<TSentence> getLatestSentence() const
   {
     std::scoped_lock lock(mutex_);
-    return std::get<std::optional<T>>(sentences);
+    return std::get<std::optional<TSentence>>(sentences);
   }
 
   /**
    * Registers a custom callback for a specific NMEA sentence type. The callback will be called
    * with the parsed sentence struct whenever a sentence of that type is successfully parsed.
-   * @tparam T NMEA sentence struct type, e.g. SentenceGGA
+   * @tparam TSentence NMEA sentence struct type, e.g. SentenceGGA
    * @param callback callback function to register, takes a const reference to the parsed sentence
    * struct as its argument
+   * @param async if true, the callback will be executed asynchronously in a separate thread
    */
-  template <typename T>
-  void setCustomCallback(utils::Callback<T> callback)
+  template <typename TSentence>
+  void setCustomCallback(utils::Callback<TSentence> callback, const bool async = false)
   {
     std::scoped_lock lock(mutex_);
-    std::get<utils::Callback<T>>(custom_callbacks_) = std::move(callback);
+
+    if (async)
+    {
+      // Wrap the callback to run asynchronously
+      auto async_callback = [callback = std::move(callback)](const TSentence& sentence)
+      {
+        std::async(std::launch::async, callback, sentence);
+      };
+      std::get<utils::Callback<TSentence>>(custom_callbacks_) = std::move(async_callback);
+    }
+    else
+    {
+      std::get<utils::Callback<TSentence>>(custom_callbacks_) = std::move(callback);
+    }
   }
 
   /**

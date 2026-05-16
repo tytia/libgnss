@@ -7,6 +7,8 @@
 
 #include <tuple>
 #include <variant>
+#include <functional>
+#include <optional>
 
 namespace libgnss::utils
 {

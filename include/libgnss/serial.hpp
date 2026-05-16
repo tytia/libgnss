@@ -20,7 +20,6 @@
 #ifndef LIBGNSS_SERIAL_HPP
 #define LIBGNSS_SERIAL_HPP
 
-#include <cstdint>
 #include <condition_variable>
 #include <mutex>
 #include <string>

@@ -196,10 +196,10 @@ struct NMEAReader::SentenceVisitor
   }
 
 private:
-  template <typename T>
-  void store(const T& sentence) const
+  template <typename TSentence>
+  void store(const TSentence& sentence) const
   {
-    std::get<std::optional<T>>(reader_.sentences).emplace(sentence);
+    std::get<std::optional<TSentence>>(reader_.sentences).emplace(sentence);
   }
 
   void approximateCovariance(const float hdop, const float vdop = 0) const
