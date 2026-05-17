@@ -37,6 +37,7 @@ class NMEAReader
 {
 public:
   NMEAReader();
+  ~NMEAReader();
 
   // disable copying
   NMEAReader(const NMEAReader&) = delete;

@@ -11,6 +11,10 @@
 #ifndef RINGBUFFER_HPP
 #define RINGBUFFER_HPP
 
+#ifndef RINGBUFFER_CACHELINE_SIZE
+#define RINGBUFFER_CACHELINE_SIZE 64
+#endif
+
 #include <stdint.h>
 #include <stddef.h>
 #include <limits>
@@ -28,7 +32,7 @@ namespace jnk0le
 	 * \tparam cacheline_size Size of the cache line, to insert appropriate padding in between indexes and buffer
 	 * \tparam index_t Type of array indexing type. Serves also as placeholder for future implementations.
 	 */
-	template<typename T, size_t buffer_size = 16, bool fake_tso = false, size_t cacheline_size = 0, typename index_t = size_t>
+	template<typename T, size_t buffer_size = 16, bool fake_tso = false, size_t cacheline_size = RINGBUFFER_CACHELINE_SIZE, typename index_t = size_t>
 	class Ringbuffer
 	{
 	public:

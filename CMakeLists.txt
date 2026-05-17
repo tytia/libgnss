@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 4.2)
+cmake_minimum_required(VERSION 3.16)
 project(libgnss LANGUAGES C CXX)
 
 set(CMAKE_CXX_STANDARD 17)
@@ -7,6 +7,10 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 
 find_path(LIBSERIALPORT_INCLUDE_DIR libserialport.h REQUIRED)
 find_library(LIBSERIALPORT_LIBRARY NAMES serialport libserialport REQUIRED)
+
+add_subdirectory(third_party)
+
+option(LIBGNSS_BUILD_EXAMPLES "Build libgnss example programs" ON)
 
 add_library(libgnss
   src/gnss_receiver.cpp
@@ -29,3 +33,7 @@ target_include_directories(libgnss
 )
 
 target_link_libraries(libgnss PUBLIC ${LIBSERIALPORT_LIBRARY})
+
+if(LIBGNSS_BUILD_EXAMPLES)
+  add_subdirectory(examples)
+endif()

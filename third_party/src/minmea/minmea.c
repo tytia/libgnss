@@ -10,7 +10,7 @@
 #define timegm _mkgmtime
 #endif
 
-#include "minmea.h"
+#include "minmea/minmea.h"
 
 #include <stdlib.h>
 #include <string.h>

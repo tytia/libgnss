@@ -46,12 +46,6 @@ namespace reflex {
 /// RE/flex matcher engine class, implements reflex::PatternMatcher pattern matching interface with scan, find, split functors and iterators.
 class Matcher : public PatternMatcher<reflex::Pattern> {
  public:
-  /// Convert a regex to an acceptable form, given the specified regex library signature `"[decls:]escapes[?+]"`, see reflex::convert.
-  template<typename T>
-  static std::string convert(T regex, convert_flag_type flags = convert_flag::none, bool *multiline = NULL)
-  {
-    return reflex::convert(regex, "imsx#=^:abcdefhijklnrstuvwxzABDHLNQSUW0<>?", flags, multiline);
-  }
   /// Default constructor.
   Matcher() : PatternMatcher<reflex::Pattern>()
   {

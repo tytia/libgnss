@@ -68,7 +68,6 @@
 #define WITH_SPAN 1
 #endif
 
-#include <reflex/convert.h>
 #include <reflex/debug.h>
 #include <reflex/input.h>
 #include <reflex/traits.h>

@@ -64,6 +64,8 @@ NMEAReader::NMEAReader()
 {
 }
 
+NMEAReader::~NMEAReader() = default;
+
 struct NMEAReader::SentenceVisitor
 {
   explicit SentenceVisitor(NMEAReader& reader)
