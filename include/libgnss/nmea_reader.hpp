@@ -28,7 +28,7 @@
 #include <future>
 
 #include "libgnss/nmea_types.hpp"
-#include "variant_helper.hpp"
+#include "libgnss/variant_helper.hpp"
 
 namespace libgnss::nmea
 {
